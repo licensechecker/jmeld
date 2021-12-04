@@ -18,3 +18,5 @@ Start jmeld with the command:
    ## License
 
 This license of this program is the LGPL.
+
+Описание на русском языке: https://xn--90abhbolvbbfgb9aje4m.xn--p1ai/jmeld-instrument-vizualnogo-sravneniya-i-sliyaniya/
