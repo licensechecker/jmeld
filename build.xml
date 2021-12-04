@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project basedir="." default="jmeld" name="JMeld">
+
+  <path id="compile.classpath">
+    <fileset dir="./lib">
+      <include name="**/*.jar" />
+    </fileset>
+  </path>
+
+  <path id="development.classpath">
+    <pathElement path="target/classes" />
+    <pathElement path="src/main/resources" />
+    <fileset dir="./lib">
+      <include name="**/*.jar" />
+    </fileset>
+  </path>
+
+  <target name="prepare">
+    <mkdir dir="target/classes" />
+    <copy todir="target/classes">
+      <fileset dir="." includes="images/**,ini/**" />
+    </copy>
+    <jar destfile="lib/help.jar">
+      <fileset dir="src/main/javahelp" />
+    </jar>
+  </target>
+
+  <target name="clean">
+    <delete dir="target/**" quiet="true" />
+  </target>
+
+  <target name="compile" depends="prepare">
+    <javac srcdir="src/main/java"
+           destdir="target/classes"
+           debug="on" 
+           source="1.5"
+           target="1.5" 
+           excludes="**/bak/**" 
+           optimize="on">
+      <classpath refid="compile.classpath" />
+    </javac>
+  </target>
+
+  <target name="jmeld" depends="clean,compile,createExecutable" />
+
+  <target name="createExecutable">
+    <jar destfile="JMeld.jar" manifest="src/main/resources/manifest.mf" update="false">
+      <fileset dir="src/main/resources" />
+      <fileset dir="target/classes" />
+      <fileset dir="src/main/javahelp" />
+      <zipfileset src="lib/jide.jar" />
+      <zipfileset src="lib/forms-1.0.7.jar" />
+      <zipfileset src="lib/looks-2.2.1.jar" />
+      <zipfileset src="lib/swingx-0.9.4.jar" />
+      <zipfileset src="lib/jhall.jar" />
+      <zipfileset src="lib/jsr173_1.0_api.jar" />
+      <zipfileset src="lib/swing-layout-1.0.3.jar" />
+      <zipfileset src="lib/icu4j-4_0.jar" />
+      <zipfileset src="lib/l2fprod-common-all.jar" />
+      <zipfileset src="lib/jaxb-api.jar" />
+      <zipfileset src="lib/jaxb-impl.jar" />
+      <zipfileset src="lib/activation.jar">
+        <exclude name="META-INF/**" />
+      </zipfileset>
+    </jar>
+  </target>
+
+  <target name="gzip">
+    <delete file="JMeld.tgz" quiet="true" />
+    <tar destfile="JMeld.tgz" compression="gzip">
+      <tarfileset dir="." prefix="jmeld" defaultexcludes="yes">
+        <include name="src/main/java/**" />
+        <include name="lib/**" />
+        <include name="build.xml" />
+        <include name="pom.xml" />
+        <include name="src/main/resources/**" />
+        <include name="src/main/javahelp/**" />
+        <include name="*.txt" />
+      </tarfileset>
+    </tar>
+  </target>
+
+  <target name="scripts" depends="initMyPathSeparator">
+    <mkdir dir="${basedir}/src/main/scripts" />
+    <delete file="${basedir}/src/main/scripts/setDevelopment.sh" quiet="true" />
+    <pathconvert dirsep="/" pathsep="${myPathSeparator}"
+                 property="setEnvironment" refid="development.classpath" />
+    <echo file="${basedir}/src/main/scripts/setDevelopment.sh">
+        #!/bin/bash
+        export CLASSPATH='${setEnvironment}'
+    </echo>
+    <chmod file="${basedir}/src/main/scripts/setDevelopment.sh" perm="ugo+x" />
+  </target>
+
+  <target name="initMyPathSeparator">
+    <condition property="myPathSeparator" value=";">
+      <os family="windows" />
+    </condition>
+    <condition property="myPathSeparator" value=":">
+      <os family="unix" />
+    </condition>
+  </target>
+</project>

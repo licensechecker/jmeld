@@ -1,0 +1,89 @@
+Release 2.0-1:
+  - Ignore case is implemented.
+  - Ignore whitespace has been improved.
+  - Activate option: fontchooser for editorpane.
+  - Introduce option: antialias on/off.
+  - Doubleclick on folder -> Diff all nodes contained in that folder.
+  - Don't open already opened panels.
+  - Support multiple charsets
+  - Fixed bug: package/folder view on windows doesn't work.
+
+Release 2.0:
+- Implement directory diff.
+- Right/Left side readonly (preference)
+- Ask save settings when closing settings-tab.
+- Allow multiple selections in FolderDiffPanel.
+- Rescan action in FolderDiffPanel.
+- tatusbar should have a bar which tells how far the diff is.
+- Exclude filters. (Create preferences and store with jaxb)
+- Ignore whitespace in diff.
+- se newest swingx library (JTableTree has changed significantly)
+- Click in JTreeTable is forgotten if it is outside length of
+        node-label
+- Save-as, Load buttons in settings panel disappear when frame is
+        made smaller.
+- Copy to left action in FolderDiffPanel.
+- Copy to right action in FolderDiffPanel.
+- Delete right action in FolderDiffPanel.
+- Delete left action in FolderDiffPanel.
+- Undo/Redo for all above actions actions.
+
+Release 1.1.3:
+  - BUG: Innerdiff sometimes didn't paint correctly
+  - While scanning directory : Text "Scanning directory xxx" in StatusBar.
+  - Background color of linenumber-border are now inline with the colors of
+    the look and feel.
+  - Paint the right side of the left scrollbar in the left JTextArea of the
+    editpanel. 
+  - Remember previous filter in directory diff dialog.
+  - BUG: directoryscanner couldn't handle includes-array with 0 elements.
+  - JMTable can now have a different renderer/editor per row/column 
+    (Standard swing can only handle 1 renderer/editor per column)
+  - Removed 'include defaultFilter' and replaced it with importfilter.
+    It is now possible to have 'filters in filters'
+  - BUG: JMeld didn't remember position of it's frame
+  - BUG: Innerdiff didn't paint well when spanning more than 1 line.
+  - BUG: Installed JAXB 2.0 because 2.1 needs endorsement on jdk1.6
+
+Release 1.1.2:
+  - Fixed Grouplayout issue
+    - Fixed JAXB issue
+    (Both issues made that 1.1.1 didn't run on jdk1.5)
+
+Release 1.1.1:
+  - ESCAPE closes the current tab
+  - New FileDiff/DirectoryDiff: pack dialog again after choosing a
+      file because the name of the file can be larger than the combobox.
+  - Add LGPL license text.
+  - BUG 1630226 resolved: Exception when doing compare
+  - Use directoryscanner of 'ant' instead of my own. The 'regular expressions'
+      of that scanner are more understandable for us mortal humans.
+  - Settings are written to an xml-file with JAXB.
+  - Settings 'tabsize' and 'show linenumbers' work now.
+  - Small icons on tabs. Align icon to the middle of the height.
+  - Add a margin between linenumbers and text.
+  - BUG Memoryleak : Configurationlisteners where not removed.
+       (Listeners are in a WeakHashSet now)
+  - BUG Memoryleak : Dispose New/Exit dialogs
+  - BUG Memoryleak : JColorChooser has a memory leak. Make it static.
+  - Default L&F : Plastic look and feel
+  - Change GroupableTableHeader to the old version
+
+Release 1.1:
+  New functionality:
+  - Innerdiffs (the differences inside a change-delta).
+    Are now diffed as words instead as characters. (more human-readable)
+  - Show linenumbers in textarea's.
+  - Show differences in fileNames (above the editors) in bold.
+  - Title of tab can be shorter if both filenames are the same.
+  - Initial implementation of directory diff.
+
+  Bugs:
+  - Click on RevisionBar below a certain point lets JTextArea paint in
+    a strange way.
+  - Save file dialog when closing the application with the frame-closebutton.
+  - Position on selected line when searching.
+
+Release 1.0:
+- First release ever.
+
